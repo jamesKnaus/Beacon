@@ -1,44 +1,104 @@
-# Notion Webhook Server
+# Notion Webhook Server for Beacon
 
-A webhook server for Notion that keeps your content in sync. This server listens for webhooks from Notion and updates local content when changes occur.
+A serverless Node.js application that listens for Notion webhooks and automatically syncs content from Notion to the Beacon knowledge base.
 
-## Features
+## How It Works
 
-- Receives notifications from Notion when content changes
-- Responds to Notion's verification challenge
-- Updates content immediately when changes are detected
-- Can be deployed to Vercel for 24/7 operation
-- Completely free to run
+This webhook server:
+1. Receives notifications from Notion when pages are updated
+2. Fetches the latest content from the main Beacon page
+3. Retrieves content from all child pages
+4. Saves the content to a JSON file for easy access by the Beacon application
 
-## Setup Options
+## Endpoints
 
-### Option 1: Deploy to Vercel (Recommended)
+- `GET /` - Home page showing available endpoints
+- `GET /api/health` - Health check that verifies the server is running and env variables are set
+- `GET /api/trigger-update` - Manually trigger a content update
+- `POST /api/webhook` - Webhook endpoint that Notion sends update notifications to
 
-For a 24/7 solution with a permanent URL, deploy to Vercel:
+## Environment Variables
 
-1. See [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md) for complete instructions
-2. Provides a permanent URL for Notion webhooks
-3. Zero maintenance required
+These variables should be set in your Vercel project settings:
 
-### Option 2: Run Locally
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `NOTION_TOKEN` | Your Notion API token | `ntn_66490575571b...` |
+| `NOTION_PAGE_ID` | The ID of your main Notion page | `19cf7b25-aad3-8011...` |
+| `WEBHOOK_SECRET` | Secure string for verification | `beacon_webhook_secret_83c271a4f5` |
+| `KNOWLEDGE_BASE_DIR` | Directory to store content | `knowledge_base` |
+| `OUTPUT_FILE` | Filename for content JSON | `notion_content.json` |
 
-For testing or local development:
+## Deployment to Vercel
 
-1. Install dependencies: `pip install -r requirements.txt`
-2. Start the server: `python notion_webhook_server.py`
-3. Use a service like ngrok or localtunnel to expose your local server
+### Initial Deployment
 
-## How it Works
+1. Push this code to your GitHub repository:
+   ```bash
+   git add .
+   git commit -m "Update Notion webhook handler"
+   git push
+   ```
 
-1. Notion sends a webhook when content changes
-2. The server verifies the webhook's authenticity
-3. The server fetches the updated content from Notion
-4. The content is saved for use by your application
+2. In Vercel:
+   - Connect to your GitHub repository
+   - Add the environment variables listed above
+   - Deploy the project
 
-## Configuration
+3. Once deployed, you'll get a URL like `https://your-webhook.vercel.app`
 
-Configure the server with environment variables:
+### Setting Up the Webhook in Notion
 
-- `NOTION_TOKEN`: Your Notion API token
-- `NOTION_PAGE_ID`: Your main Notion page ID
-- `WEBHOOK_SECRET`: A secure random string for webhook verification 
+1. Go to [Notion integrations page](https://www.notion.so/my-integrations)
+2. Select your integration
+3. Under "Webhooks", click "Add new webhook"
+4. Enter your Vercel URL: `https://your-webhook.vercel.app/api/webhook`
+5. Enter the webhook secret (same as `WEBHOOK_SECRET` env variable)
+6. Select events you want to be notified about (recommend: all page events)
+
+## Testing the Webhook
+
+1. Visit `https://your-webhook.vercel.app/api/health` to verify it's running
+2. Visit `https://your-webhook.vercel.app/api/trigger-update` to manually sync content
+3. Make a change in Notion and check if the content updates automatically
+
+## Maintenance and Troubleshooting
+
+### Updating the Code
+
+1. Make changes to the files
+2. Add and commit changes to git
+3. Push to GitHub, Vercel will automatically redeploy
+
+### Common Issues
+
+- **Webhook verification fails**: Ensure webhook secret matches in both Notion and Vercel
+- **Content not updating**: Check Vercel logs for error messages
+- **Missing child pages**: The webhook retrieves one level of child pages only
+
+### Vercel Logs
+
+Always check Vercel logs for any errors when troubleshooting:
+1. Go to your project in Vercel dashboard
+2. Click "Functions" tab 
+3. Select a function to view its logs
+
+## File Structure
+
+- `api/index.js` - Main webhook handler (serverless function)
+- `vercel.json` - Vercel configuration
+- `package.json` - Node.js dependencies
+
+## What Gets Synchronized
+
+The webhook syncs:
+- The main Beacon page content
+- All first-level child pages
+- Content is formatted as markdown-like text
+- Block types are preserved (headings, lists, code blocks, etc.)
+
+## Security Notes
+
+- Keep your Notion API token private
+- The webhook secret ensures only authenticated requests are processed
+- Vercel includes built-in HTTPS for secure connections 

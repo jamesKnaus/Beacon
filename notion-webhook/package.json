@@ -1,0 +1,17 @@
+{
+  "name": "notion-webhook-server",
+  "version": "1.0.0",
+  "description": "Notion webhook server for Vercel",
+  "main": "api/index.js",
+  "scripts": {
+    "start": "node api/index.js"
+  },
+  "dependencies": {
+    "@notionhq/client": "^2.2.13",
+    "fs": "0.0.1-security",
+    "path": "^0.12.7"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+} 
