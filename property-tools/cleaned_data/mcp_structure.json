@@ -1,0 +1,76 @@
+{
+  "property_context": {
+    "current_property": {
+      "property_id": "string",
+      "address": "string",
+      "city": "string",
+      "state": "string",
+      "zip": "string",
+      "borough": "string",
+      "property_type": "string",
+      "bedrooms": "number",
+      "bathrooms": "number",
+      "building_sqft": "number",
+      "lot_sqft": "number",
+      "year_built": "number",
+      "estimated_value": "number",
+      "last_sale_price": "number",
+      "last_sale_date": "string"
+    },
+    "similar_properties": [
+      {
+        "property_id": "string",
+        "address": "string",
+        "borough": "string",
+        "estimated_value": "number",
+        "bedrooms": "number",
+        "bathrooms": "number"
+      }
+    ]
+  },
+  "search_context": {
+    "filters": {
+      "borough": [
+        "string"
+      ],
+      "min_price": "number",
+      "max_price": "number",
+      "min_bedrooms": "number",
+      "min_bathrooms": "number",
+      "property_type": [
+        "string"
+      ],
+      "min_sqft": "number",
+      "max_year_built": "number"
+    },
+    "sort_by": "string",
+    "sort_direction": "string"
+  },
+  "user_preferences": {
+    "favorite_properties": [
+      "string"
+    ],
+    "recent_searches": [
+      {
+        "query": "string",
+        "filters": {}
+      }
+    ],
+    "investment_strategy": "string"
+  },
+  "conversation_memory": {
+    "property_mentions": [
+      {
+        "property_id": "string",
+        "mention_count": "number",
+        "last_mentioned_at": "timestamp"
+      }
+    ],
+    "user_questions": [
+      "string"
+    ],
+    "assistant_recommendations": [
+      "string"
+    ]
+  }
+}

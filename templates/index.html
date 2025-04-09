@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beacon - NYC Real Estate Investment Intelligence</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- Font imports -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="{{ url_for('index') }}">Beacon<span>AI</span></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>NYC Real Estate Investment Intelligence</h1>
+            <p>Beacon uses AI to help you find the perfect NYC investment property that matches your specific criteria and goals.</p>
+            <button id="start-chat-btn" class="cta-button">Chat with Beacon</button>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2>Why Choose Beacon</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI-Powered Matching</h3>
+                    <p>Our intelligent system analyzes thousands of NYC properties to find the perfect match for your investment criteria.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Market Insights</h3>
+                    <p>Get up-to-date analytics on NYC neighborhood trends, price movements, and investment opportunities.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Weekly Updates</h3>
+                    <p>Receive personalized property recommendations and market insights delivered directly to your inbox.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="features" id="about">
+        <div class="container">
+            <h2>About Beacon</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>NYC Specialists</h3>
+                    <p>We focus exclusively on the New York City real estate market, providing specialized knowledge across all five boroughs.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3>For Investors, By Investors</h3>
+                    <p>Created by NYC real estate investors who understand the challenges of finding the right investment properties.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Privacy First</h3>
+                    <p>Your investment criteria and personal information are always kept secure and never shared with third parties.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Chat Section -->
+    <section class="features" id="chat">
+        <div class="container" style="text-align: center;">
+            <h2>Ready to Find Your Next NYC Investment?</h2>
+            <p style="max-width: 800px; margin: 0 auto 30px; font-size: 1.2rem;">
+                Chat with Beacon to share your investment criteria and get personalized property recommendations.
+            </p>
+            <button id="chat-now-btn" class="cta-button">Chat with Beacon Now</button>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="{{ url_for('index') }}">Beacon<span>AI</span></a>
+                    <p>Your NYC real estate investment guide</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="{{ url_for('index') }}">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-envelope"></i> info@beaconai.com</p>
+                    <p><i class="fas fa-phone"></i> (212) 555-1234</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 BeaconAI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        // Make the second button also redirect to chat page
+        document.getElementById('chat-now-btn').addEventListener('click', () => {
+            window.location.href = '/chat';
+        });
+        
+        // Add active class to hero for animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const heroSection = document.querySelector('.hero');
+            if (heroSection) {
+                setTimeout(() => {
+                    heroSection.classList.add('active');
+                }, 300);
+            }
+        });
+    </script>
+</body>
+</html>
